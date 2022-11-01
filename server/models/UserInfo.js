@@ -15,7 +15,6 @@ const userInfoSchema = new mongoose.Schema({
     theme: {
         type: String,
     }
-
 })
 
-module.exports = mongoose.model("userInfo", userInfoSchema)
+module.exports = mongoose.model("UserInfo", userInfoSchema)
