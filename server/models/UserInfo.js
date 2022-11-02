@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 
-const userInfoSchema = new mongoose.Schema({
+const { Schema } = mongoose
+mongoose.Promise = global.Promise;
+
+const userInfoSchema = new Schema({
     userID: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -17,4 +20,4 @@ const userInfoSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("UserInfo", userInfoSchema)
+module.exports = mongoose.models.UserInfo || mongoose.model("UserInfo", userInfoSchema)
