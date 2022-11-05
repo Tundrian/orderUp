@@ -13,6 +13,8 @@ connectDB()
 
 app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/user', require('./routes/userRoutes'))
+app.use('/api/recipe', require('./routes/recipes'))
+
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`.cyan.underline)
 })
