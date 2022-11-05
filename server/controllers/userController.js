@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/User')
 const UserInfo = require('../models/UserInfo')
-// const UserInfoController = require('./userInfoController')
 
 // @desc    Register new user
 // @route   POST /api/users
@@ -39,13 +38,13 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
 
     // create userInfo
-    const newUserInfo = await UserInfo.create({
+    const userInfo = await UserInfo.create({
       userID: user.id,
-      name: user.username,
+      username: user.username,
       email: user.email,
       theme: "light",
     })
-
+  
     res.status(201).json({
       _id: user.id,
       username: user.username,

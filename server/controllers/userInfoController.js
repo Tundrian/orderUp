@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler')
 
-const UserInfo = require('../models/userInfo')
+const UserInfo = require('../models/UserInfo')
 // const User = require('../models/User')
 
 // @desc    Get user info
@@ -16,7 +16,7 @@ const getUserInfo = asyncHandler(async (req, res) => {
 // @route   POST /api/user
 // @access  Private
 const setUserInfo = asyncHandler(async (req, res) => {
-    const [userID, name, email, theme] = req.body
+    const [userID, username, email, theme] = req.body
 
    if (!userID && !name && !email && !theme) {
     res.status(400)
@@ -25,7 +25,7 @@ const setUserInfo = asyncHandler(async (req, res) => {
 
   const userInfo = await UserInfo.create({
     userID: req.body.userID !== '' ? req.body.userID : userID,
-    name: req.body.name !== '' ? req.body.name : name,
+    username: req.body.username !== '' ? req.body.username : username,
     email: req.body.email !== '' ? req.body.email : email,
     theme: req.body.theme !== '' ? req.body.theme : theme
   })
