@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const recipeSchema = mongoose.schema({
+const recipeSchema = new mongoose.Schema({
     userID: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

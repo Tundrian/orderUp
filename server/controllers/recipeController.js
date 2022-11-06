@@ -15,9 +15,8 @@ const getRecipe = asyncHandler(async (req, res) => {
 // @route   POST /api/user
 // @access  Private
 const setRecipe = asyncHandler(async (req, res) => {
-    const [userID, recipeID, recipeName, imageURL, mealtime] = req.body
 
-   if (!userID && !recipeID && !recipeName && !imageURL && !mealtime) {
+   if (!req.body.userID && !req.body.recipeID && !req.body.recipeName && !req.body.imageURL && !req.body.mealtime) {
     res.status(400)
     throw new Error('Nothing to change')
   }
@@ -37,10 +36,7 @@ const setRecipe = asyncHandler(async (req, res) => {
 // @route   PUT /api/user/:id
 // @access  Private
 const updateRecipe = asyncHandler(async (req, res) => {
-  const recipe = await Recipe.findById({ 
-    userID: req.user.id, 
-    id: req.params.id
-  })
+  const recipe = await Recipe.findById({_id: req.params.id})
 
   if (!recipe) {
     res.status(400)
