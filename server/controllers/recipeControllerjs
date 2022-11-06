@@ -1,7 +1,6 @@
 const asyncHandler = require('express-async-handler')
 
 const Recipe = require('../models/Recipe')
-// const User = require('../models/User')
 
 // @desc    Get user info
 // @route   GET /api/user
@@ -38,14 +37,14 @@ const setRecipe = asyncHandler(async (req, res) => {
 // @route   PUT /api/user/:id
 // @access  Private
 const updateRecipe = asyncHandler(async (req, res) => {
-  const recipe = await Recipe.findById(    { 
+  const recipe = await Recipe.findById({ 
     userID: req.user.id, 
     id: req.params.id
   })
 
   if (!recipe) {
     res.status(400)
-    throw new Error('User not found')
+    throw new Error('Recipe not found')
   }
 
   // Check for user
