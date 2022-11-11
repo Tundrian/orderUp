@@ -19,7 +19,7 @@ function Navbar() {
               <li><Link to={`/login`}>Login</Link></li>
             </ul>
           </li>
-          <li><li><Link to={`/home`}>Logout</Link></li></li>
+          <li><Link to={`/home`}>Logout</Link></li>
         </ul>
       </div>
     </div>

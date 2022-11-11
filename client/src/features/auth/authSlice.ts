@@ -3,7 +3,8 @@ import authService from './authService'
 import { AnyAction } from 'redux'
 
 // Get user from localStorage
-const user: string = JSON.parse(localStorage.getItem('user') || "") 
+const user: string = localStorage['user'] ? JSON.parse(localStorage.getItem('user') || "") : ""
+// const user: string = ""
 
 interface UserState {
   user: string | null,
