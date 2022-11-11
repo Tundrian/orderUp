@@ -1,9 +1,18 @@
 import React, {useState} from 'react'
 import { redirect, useNavigate } from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux'
+import {toast} from 'react-toastify'
+const {register, reset} = require('../../features/auth/authSlice')
 
 function Register() {
   const navigate = useNavigate();
-  const [user, setuser] = useState<{userName: '', email: string, password: string, confirmPassword: string}>({
+  const dispatch = useDispatch()
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state: any) => state.auth
+  )
+
+
+  const [userForm, setuser] = useState<{userName: '', email: string, password: string, confirmPassword: string}>({
     userName: '',
     email: '',
     password: '',
@@ -50,19 +59,19 @@ function Register() {
         <label className="label">
           <span className="label-text text-2xl">Email</span>
         </label>
-        <input type="email" name="email" id="email" value={user.email} onChange={handleChange} className="input w-full max-w-md"/>
+        <input type="email" name="email" id="email" value={userForm.email} onChange={handleChange} className="input w-full max-w-md"/>
         <label className="label">
           <span className="label-text text-2xl">Username</span>
         </label>
-        <input type="text" name="userName" id="userName" value={user.userName} onChange={handleChange} className="input w-full max-w-md"/>
+        <input type="text" name="userName" id="userName" value={userForm.userName} onChange={handleChange} className="input w-full max-w-md"/>
         <label className="label">
           <span className="label-text text-2xl">Password</span>
         </label>
-        <input type="password" name="password" id="password" value={user.password} onChange={handleChange}  className="input w-full max-w-md"/>
+        <input type="password" name="password" id="password" value={userForm.password} onChange={handleChange}  className="input w-full max-w-md"/>
         <label className="label">
           <span className="label-text text-2xl">Confirm Password</span>
         </label>
-        <input type="password" name="confirmPassword" id="confirmPassword" value={user.confirmPassword} onChange={handleChange} className="input w-full max-w-md"/>
+        <input type="password" name="confirmPassword" id="confirmPassword" value={userForm.confirmPassword} onChange={handleChange} className="input w-full max-w-md"/>
         <button type="submit" className="btn mt-10 max-w-md">Register</button>
       </form>
     </div>

@@ -7,6 +7,7 @@ import {
   RouterProvider,
   Route
 } from 'react-router-dom'
+
 import Root from './routes/root'
 import ErrorPage from './routes/error-page'
 import Home from './routes/Home'
