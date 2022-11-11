@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import { redirect, useNavigate } from 'react-router-dom'
+import React, {useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {toast} from 'react-toastify'
 import { register, reset } from '../../features/auth/authSlice'
@@ -47,6 +47,7 @@ function Register() {
     navigate('/home')
     
   }
+  
 
   return (
     <div className="mt-10 flex flex-col justify-center p-10 ">
