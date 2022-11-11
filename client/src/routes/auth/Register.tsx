@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { redirect, useNavigate } from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {toast} from 'react-toastify'
-const {register, reset} = require('../../features/auth/authSlice')
+import { register, reset } from '../../features/auth/authSlice'
 
 function Register() {
   const navigate = useNavigate();
