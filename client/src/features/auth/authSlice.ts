@@ -15,7 +15,7 @@ interface UserState {
 }
 
 interface UserData {
-  name: string,
+  username: string,
   email: string,
   password: string,
   password2: string
@@ -40,7 +40,9 @@ function getErrorMessage(error: unknown) {
 
 // Register user
 export const register = createAsyncThunk(
+  
   'auth/register',
+  
   async (user: UserData, thunkAPI) => {
     try {
       return await authService.register(user)

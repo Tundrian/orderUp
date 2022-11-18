@@ -12,8 +12,8 @@ function Register() {
   )
 
 
-  const [userForm, setuser] = useState<{userName: '', email: string, password: string, confirmPassword: string}>({
-    userName: '',
+  const [userForm, setuser] = useState<{username: '', email: string, password: string, confirmPassword: string}>({
+    username: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -29,9 +29,9 @@ function Register() {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
-    const fetched = await fetch(`http://localhost:5000/signup/`, {
+    const fetched = await fetch(`http://localhost:5000/api/auth/`, {
       method: 'POST',
-      body: JSON.stringify(user),
+      body: JSON.stringify(userForm),
       headers: {"Content-Type": "application/json"}
     })  
     const data = await fetched.json()
@@ -64,7 +64,7 @@ function Register() {
         <label className="label">
           <span className="label-text text-2xl">Username</span>
         </label>
-        <input type="text" name="userName" id="userName" value={userForm.userName} onChange={handleChange} className="input w-full max-w-md"/>
+        <input type="text" name="username" id="username" value={userForm.username} onChange={handleChange} className="input w-full max-w-md"/>
         <label className="label">
           <span className="label-text text-2xl">Password</span>
         </label>

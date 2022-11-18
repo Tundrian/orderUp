@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const API_URL = '/api/users/'
+const API_URL = '/api/auth/'
 
 interface UserData {
-  name: string,
+  username: string,
   email: string,
   password: string,
   password2: string
@@ -11,6 +11,7 @@ interface UserData {
 
 // Register user
 const register = async (userData: UserData) => {
+  console.log(userData)
   const response = await axios.post(API_URL, userData)
 
   if (response.data) {
