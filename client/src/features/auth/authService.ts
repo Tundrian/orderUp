@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-const API_URL = '/api/auth/'
+const API_URL = 'http://localhost:5000/api/auth/'
 
 interface UserData {
   username: string,
   email: string,
   password: string,
-  password2: string
+  confirmPassword: string
 }
 
 // Register user

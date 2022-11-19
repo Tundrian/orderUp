@@ -4,6 +4,7 @@ import { AnyAction } from 'redux'
 
 // Get user from localStorage
 const user: string = localStorage['user'] ? JSON.parse(localStorage.getItem('user') || "") : ""
+console.log('Slice: ', user)
 // const user: string = ""
 
 interface UserState {
@@ -18,7 +19,7 @@ interface UserData {
   username: string,
   email: string,
   password: string,
-  password2: string
+  confirmPassword: string
 }
 
 const initialState: UserState = {

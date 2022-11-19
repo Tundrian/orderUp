@@ -8,7 +8,7 @@ function Navbar() {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0">
-          <li><a>Menu 1</a></li>
+          <li><Link to={`/protected`}>Protected</Link></li>
           <li tabIndex={0}>
             <a>
               Auth

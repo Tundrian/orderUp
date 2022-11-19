@@ -11,6 +11,7 @@ import ErrorPage from './routes/error-page'
 import Home from './routes/Home'
 import Register from './routes/auth/Register'
 import Login from './routes/auth/Login'
+import Protected from './routes/Protected'
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />
+      },
+      {
+        path: "/protected",
+        element: <Protected />
       }
     ],
   },
