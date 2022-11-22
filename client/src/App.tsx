@@ -12,6 +12,7 @@ import Home from './routes/Home'
 import Register from './routes/auth/Register'
 import Login from './routes/auth/Login'
 import Protected from './routes/Protected'
+import Search from './routes/Search'
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/protected",
         element: <Protected />
+      },
+      {
+        path: "/search",
+        element: <Search />
       }
     ],
   },
