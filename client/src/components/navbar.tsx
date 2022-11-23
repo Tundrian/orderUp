@@ -9,6 +9,7 @@ function Navbar() {
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0">
           <li><Link to={`/protected`}>Protected</Link></li>
+          <li><Link to={`/search`}>Search</Link></li>
           <li tabIndex={0}>
             <a>
               Auth
