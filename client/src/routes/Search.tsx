@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
-
+import {useSelector, useDispatch} from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 interface DataFace {
     id: string,
     title: string,
@@ -7,16 +8,26 @@ interface DataFace {
 }
 
 interface Recipe {
-    id: string,
-    title: string,
-    image: string,
-    summary: string
+    id: string,     //recipeID
+    title: string,  //recipeName
+    image: string,  //imageURL
+    summary: string //mealtime
 }
 
 function Search() {
 
     const [search, setSearch] = useState<string>('')
     const [sRecipes, setSRecipes] = useState<[Recipe] | []>([])
+    const dispatch = useDispatch()
+    const { user } = useSelector((state: any) => state.auth)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        console.log(user)
+        if(!user){
+          navigate('/home')
+        }
+      }, [user, navigate, dispatch, ])
 
       const formSubmit = async (e:React.SyntheticEvent) => {
         e.preventDefault()
@@ -31,9 +42,28 @@ function Search() {
         setSearch(e.target.value)
       }
 
-      const addToMenu = (meal: Recipe) => {
-        console.log(meal)
-
+      const addToMenu = async (meal: Recipe) => {
+        console.log(user._id)
+        const mealFetch = {
+            userID: user._id,
+            recipeID: meal.id,
+            recipeName: meal.title,
+            imageURL: meal.image,
+            mealtime: meal.summary
+        }
+        try {
+            const response = await fetch("http://localhost:5000/api/recipe", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify(mealFetch)
+            })
+            await console.log(response.json())
+        } catch (error) {
+            console.log(error)
+        }
       }
 
     return (
