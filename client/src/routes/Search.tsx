@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 interface DataFace {
     id: string,
@@ -31,10 +31,15 @@ function Search() {
         setSearch(e.target.value)
       }
 
+      const addToMenu = (meal: Recipe) => {
+        console.log(meal)
+
+      }
+
     return (
         <>
             <div className="mt-20 mx-10">
-                <form className="form-control flex flex-row flex-nowrap" onSubmit={formSubmit}>
+                <form className="form-control flex flex-row flex-nowrap sm:flex-wrap" onSubmit={formSubmit}>
                     <input className="input input-bordered w-[80%]" value={search} onChange={handleSearchChange} type="text" placeholder="Search" />
                     <button className="rounded-md py-2 px-4 bg-red-800 mx-2 w-[20%]" type="submit">Search</button>
                 </form>
@@ -47,7 +52,7 @@ function Search() {
                                     <h2 className="card-title">{x.title}</h2>
                                     <p>{x.summary}</p>
                                     <div className="card-actions justify-end">
-                                        <button className="btn btn-primary border-none bg-red-800">Buy Now</button>
+                                        <button className="btn btn-primary border-none bg-red-800" onClick={() => addToMenu(x)}>Add to Menu</button>
                                     </div>
                                 </div>
                             </div>
