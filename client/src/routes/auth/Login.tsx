@@ -29,9 +29,9 @@ function Login() {
     }
     setErr(false)
 
-    
-    // return navigate(`/home`)
-    navigate('/home')
+    console.log('logged in')
+    return navigate(`/home`)
+    // navigate('/home')
     
   }
   return (

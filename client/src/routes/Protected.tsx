@@ -16,7 +16,6 @@ function Protected() {
   const [sRecipes, setSRecipes] = useState<[Recipe] | []>([])
 
   useEffect(() => {
-    console.log(user)
     if(!user){
       navigate('/home')
     }
