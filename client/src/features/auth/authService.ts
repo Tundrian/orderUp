@@ -6,7 +6,7 @@ interface UserData {
   username: string,
   email: string,
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
 }
 
 // Register user
@@ -33,7 +33,7 @@ const login = async (userData: UserData) => {
 }
 
 // Logout user
-const logout = () => {
+const logout = (): void => {
   localStorage.removeItem('user')
 }
 

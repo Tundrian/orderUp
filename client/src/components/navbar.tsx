@@ -1,6 +1,19 @@
-import { Link } from "react-router-dom"
-
+import { Link, useNavigate } from "react-router-dom"
+import {useSelector, useDispatch} from 'react-redux'
+import { useAppSelector, useAppDispatch } from "../../app/hooks"
+import { logout, reset } from '../features/auth/authSlice'
 function Navbar() {
+
+  const dispatch = useAppDispatch()
+  const { user } = useAppSelector((state: any) => state.auth)
+  const navigate = useNavigate()
+
+  const logout = () => {
+    dispatch(logout())
+    dispatch(reset()) 
+    navigate('/home')
+  }
+
   return (
     <div className="fixed top-0 navbar bg-base-100">
       <div className="flex-1">
@@ -20,7 +33,7 @@ function Navbar() {
               <li><Link to={`/login`}>Login</Link></li>
             </ul>
           </li>
-          <li><Link to={`/home`}>Logout</Link></li>
+          <li onClick={() => logout()}>Logout</li>
         </ul>
       </div>
     </div>
