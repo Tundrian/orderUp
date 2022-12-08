@@ -8,7 +8,7 @@ function Navbar() {
   const { user } = useAppSelector((state: any) => state.auth)
   const navigate = useNavigate()
 
-  const logout = () => {
+  const logoutCall = () => {
     dispatch(logout())
     dispatch(reset()) 
     navigate('/home')
@@ -33,7 +33,7 @@ function Navbar() {
               <li><Link to={`/login`}>Login</Link></li>
             </ul>
           </li>
-          <li onClick={() => logout()}>Logout</li>
+          <li onClick={() => logoutCall()}>Logout</li>
         </ul>
       </div>
     </div>
