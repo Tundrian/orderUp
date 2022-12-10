@@ -9,6 +9,11 @@ interface UserData {
   confirmPassword: string,
 }
 
+interface userLoginData {
+  email: string,
+  password: string,
+}
+
 // Register user
 const register = async (userData: UserData) => {
   console.log(userData)
@@ -22,7 +27,7 @@ const register = async (userData: UserData) => {
 }
 
 // Login user
-const login = async (userData: UserData) => {
+const login = async (userData: userLoginData) => {
   const response = await axios.post(API_URL + 'login', userData)
 
   if (response.data) {

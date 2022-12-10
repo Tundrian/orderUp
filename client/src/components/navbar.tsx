@@ -20,7 +20,7 @@ function Navbar() {
         <Link className="btn btn-ghost normal-case text-xl" to={`/home`}>Order Up</Link>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal p-0">
+        <ul className="menu menu-horizontal p-0 grid grid-cols-4 gap-1">
           <li><Link to={`/protected`}>Protected</Link></li>
           <li><Link to={`/search`}>Search</Link></li>
           <li tabIndex={0}>
@@ -33,7 +33,7 @@ function Navbar() {
               <li><Link to={`/login`}>Login</Link></li>
             </ul>
           </li>
-          <li onClick={() => logoutCall()}>Logout</li>
+          <li className="p-2 bg-base-100 rounded hover:bg-gray-700 hover:cursor-pointer align-middle" onClick={() => logoutCall()}>Logout</li>
         </ul>
       </div>
     </div>

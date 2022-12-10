@@ -3,9 +3,9 @@ import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState } from 'react'
 
 interface Recipe {
-  id: string,     //recipeID
-  title: string,  //recipeName
-  image: string,  //imageURL
+  _id: string,     //recipeID
+  recipeName: string,  //recipeName
+  imageURL: string,  //imageURL
   summary: string //mealtime
 }
 
@@ -32,14 +32,34 @@ function Protected() {
           'Authorization': `Bearer ${user.token}`
         },
       })
-      await console.log(response.json())
+      let data = await response.json()
+      setSRecipes(data)
+      await console.log(sRecipes)
     } catch (error) {
       console.log(error)
     }
   }
 
   return (
-    <div>Protected</div>
+    <div>
+      <h1>My Menu</h1>
+      <div className="my-10 grid grid-cols-3 gap-10">
+                    {sRecipes.length && sRecipes.map(x => 
+                        (
+                            <div key={x._id} className="card card-compact w-96 bg-base-100 shadow-xl">
+                                <figure><img src={x.imageURL} alt="recipe image" /></figure>
+                                <div className="card-body">
+                                    <h2 className="card-title">{x.recipeName}</h2>
+                                    <p>{x.summary}</p>
+                                    <div className="card-actions justify-end">
+                                        <button className="btn btn-primary border-none bg-red-800" >Add to Menu</button>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    )}
+                </div>
+    </div>
   )
 }
 export default Protected

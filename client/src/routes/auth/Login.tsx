@@ -1,9 +1,19 @@
 import React, {useState} from 'react'
-import { redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import {toast} from 'react-toastify'
+import { login } from '../../features/auth/authSlice'
+import { useAppDispatch } from '../../../app/hooks'
 
 function Login() {
-  const navigate = useNavigate();
-  const [user, setuser] = useState<{email: string, password: string}>({
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
+const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state: any) => state.auth
+  )
+
+  const [userForm, setuser] = useState<{email: string, password: string}>({
     email: '',
     password: ''
   })
@@ -18,20 +28,9 @@ function Login() {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
-    const fetched = await fetch(`http://localhost:5000/login/`, {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {"Content-Type": "application/json"}
-    })  
-    if(!fetched.ok){
-      setErr(true)
-      return 
-    }
-    setErr(false)
+    dispatch(login(userForm))
 
-    console.log('logged in')
-    return navigate(`/home`)
-    // navigate('/home')
+    navigate('/home')
     
   }
   return (
@@ -41,11 +40,11 @@ function Login() {
       <label className="label">
           <span className="label-text text-2xl">Email</span>
         </label>
-        <input type="email" name="email" id="email" value={user.email} onChange={handleChange}  className="input w-full max-w-md"/>
+        <input type="email" name="email" id="email" value={userForm.email} onChange={handleChange}  className="input w-full max-w-md"/>
         <label className="label">
           <span className="label-text text-2xl">Password</span>
         </label>
-        <input type="password" name="password" id="password" value={user.password} onChange={handleChange} className="input w-full max-w-md"/>
+        <input type="password" name="password" id="password" value={userForm.password} onChange={handleChange} className="input w-full max-w-md"/>
         <button type="submit" className="btn mt-10 max-w-md">Login</button>
       </form>
     </div>

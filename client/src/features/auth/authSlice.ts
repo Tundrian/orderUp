@@ -22,6 +22,11 @@ interface UserData {
   confirmPassword: string
 }
 
+interface userLoginData {
+  email: string,
+  password: string,
+}
+
 const initialState: UserState = {
   user: user ? user : null,
   isError: false,
@@ -61,7 +66,7 @@ export const register = createAsyncThunk(
 )
 
 // Login user
-export const login = createAsyncThunk('auth/login', async (user: UserData, thunkAPI) => {
+export const login = createAsyncThunk('auth/login', async (user: userLoginData, thunkAPI) => {
   try {
     return await authService.login(user)
   } catch (error) {

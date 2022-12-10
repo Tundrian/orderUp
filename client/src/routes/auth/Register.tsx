@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {toast} from 'react-toastify'
-import { register, reset } from '../../features/auth/authSlice'
-import { useAppSelector, useAppDispatch } from '../../../app/hooks'
+import { register } from '../../features/auth/authSlice'
+import { useAppDispatch } from '../../../app/hooks'
 
 function Register() {
   const navigate = useNavigate()
@@ -31,22 +31,8 @@ function Register() {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
-    // const fetched = await fetch(`http://localhost:5000/api/auth/`, {
-    //   method: 'POST',
-    //   body: JSON.stringify(userForm),
-    //   headers: {"Content-Type": "application/json"}
-    // })  
-    // const data = await fetched.json()
-    // console.log(data)
-    // if(!fetched.ok){
-    //   setErr(true)
-    //   return 
-    // }
-    
-    // setErr(false)
-    // console.log('fetched: ', fetched)
     dispatch(register(userForm))
-    // localStorage.setItem('user', JSON.stringify(fetched.user))
+
     navigate('/home')
     
   }
