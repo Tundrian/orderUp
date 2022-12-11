@@ -1,0 +1,12 @@
+Pop-up on add to menu
+    select mealtime
+
+My menu
+    tabs for each mealtime
+    display recipes under each tabs
+
+Add schedule template
+    Select meal for each mealtime each day
+        Show sunday -> saturday
+        show three slots each
+        allow a meal in each slot

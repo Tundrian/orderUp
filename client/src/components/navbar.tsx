@@ -11,13 +11,13 @@ function Navbar() {
   const logoutCall = () => {
     dispatch(logout())
     dispatch(reset()) 
-    navigate('/home')
+    navigate('/')
   }
 
   return (
     <div className="fixed top-0 navbar bg-base-100">
       <div className="flex-1">
-        <Link className="btn btn-ghost normal-case text-xl" to={`/home`}>Order Up</Link>
+        <Link className="btn btn-ghost normal-case text-xl" to={`/`}>Order Up</Link>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0 grid grid-cols-4 gap-1">
