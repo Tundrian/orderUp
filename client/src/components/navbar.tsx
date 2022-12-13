@@ -15,7 +15,7 @@ function Navbar() {
   }
 
   return (
-    <div className="fixed top-0 navbar bg-base-100">
+    <div className="fixed top-0 navbar bg-lime-900 z-10">
       <div className="flex-1">
         <Link className="btn btn-ghost normal-case text-xl" to={`/`}>Order Up</Link>
       </div>

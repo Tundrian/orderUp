@@ -69,20 +69,20 @@ function Search() {
     return (
         <>
             <div className="mt-20 mx-10">
-                <form className="form-control flex flex-row flex-nowrap sm:flex-wrap" onSubmit={formSubmit}>
-                    <input className="input input-bordered w-[80%]" value={search} onChange={handleSearchChange} type="text" placeholder="Search" />
-                    <button className="rounded-md py-2 px-4 bg-red-800 mx-2 w-[20%]" type="submit">Search</button>
+                <form className="form-control flex flex-row flex-nowrap sm:flex-wrap w-full" onSubmit={formSubmit}>
+                    <input className="input input-bordered min-w-[80%]" value={search} onChange={handleSearchChange} type="text" placeholder="Search" />
+                    <button className="rounded-md py-2 px-4 bg-red-800 mx-2" type="submit">Search</button>
                 </form>
-                <div className="my-10 grid grid-cols-3 gap-10">
+                <div className="my-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
                     {sRecipes.length && sRecipes.map(x => 
                         (
-                            <div key={x.id} className="card card-compact w-96 bg-base-100 shadow-xl">
-                                <figure><img src={x.image} alt="recipe image" /></figure>
+                            <div key={x.id} className="card card-compact bg-base-100 shadow-xl flex flex-row p-5">
+                                <figure><img className="" src={x.image} alt="recipe image"/></figure>
                                 <div className="card-body">
                                     <h2 className="card-title">{x.title}</h2>
                                     <p>{x.summary}</p>
                                     <div className="card-actions justify-end">
-                                        <button className="btn btn-primary border-none bg-red-800" onClick={() => addToMenu(x)}>Add to Menu</button>
+                                        <button className="w-full btn btn-primary border-none bg-red-800" onClick={() => addToMenu(x)}>Add to Menu</button>
                                     </div>
                                 </div>
                             </div>

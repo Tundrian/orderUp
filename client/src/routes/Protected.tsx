@@ -41,12 +41,12 @@ function Protected() {
   }
 
   return (
-    <div>
-      <h1>My Menu</h1>
-      <div className="my-10 grid grid-cols-3 gap-10">
+    <div className="mt-20 mx-10">
+      <h1 className="text-center text-2xl">My Menu</h1>
+      <div className="my-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
                     {sRecipes.length && sRecipes.map(x => 
                         (
-                            <div key={x._id} className="card card-compact w-96 bg-base-100 shadow-xl">
+                            <div key={x._id} className="card card-compact bg-base-100 shadow-xl flex flex-row p-5">
                                 <figure><img src={x.imageURL} alt="recipe image" /></figure>
                                 <div className="card-body">
                                     <h2 className="card-title">{x.recipeName}</h2>
