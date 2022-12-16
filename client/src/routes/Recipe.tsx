@@ -1,51 +1,73 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+interface RecipeDetail {
+  id: string,
+  title: string,
+  image: string,
+  imageType: string,
+  servings: number,
+  readyInMinutes: number,
+  healthScore: number,
+  dairyFree: boolean,
+  instructions: string,
+  vegan: boolean,
+  dishTypes: string[],
+  extendedIngredients: {
+      id: string,
+      name: string,
+      original: string,
+      unit: string,
+      image: string,
+  }[],
+}
 
-function Recipe(id: string) {
+interface Id {
+  id: string
+}
+function Recipe({id}: Id) {
     const dispatch = useDispatch()
     const { user } = useSelector((state: any) => state.auth)
     const navigate = useNavigate()
-    const [recipe, setRecipe] = useState<[recipe] | []>
-    let recipe: recipe
+    const [recipe, setRecipe] = useState<RecipeDetail>()
 
-    interface recipe {
-        id: string,
-        title: string,
-        image: string,
-        imageType: string,
-        servings: number,
-        readyInMinutes: number,
-        healthScore: number,
-        dairyFree: boolean,
-        instructions: string,
-        vegan: boolean,
-        dishTypes: string[],
-        extendedIngredients: {
-            id: string,
-            name: string,
-            original: string,
-            unit: string,
-            image: string,
-        }[],
+    const getDetails = async () => {
+      const api = await fetch(`https://api.spoonacular.com/recipes/${id.toString()}/information?apiKey=${import.meta.env.VITE_API_KEY}`)
+        const data = await api.json()
+        // console.log('id: ', id)
+        // console.log('data: ', data)
+      //   setSRecipes(data.results)
+      setRecipe(() => {
+        return {
+          id: data.id,
+          title: data.title,
+          image: data.image,
+          imageType: data.imageType,
+          servings: data.servings,
+          readyInMinutes: data.readyInMinutes,
+          healthScore: data.healthScore,
+          dairyFree: data.dairyFree,
+          instructions: data.instructions,
+          vegan: data.vegan,
+          dishTypes: data.dishTypes,
+          extendedIngredients: data.extendedIngredients
+        }
+
+      })
     }
-
+    
     useEffect(() => {
-       console.log(user)
+      //  console.log(user)
         if(!user){
           navigate('/home')
         }
-      }, [user, navigate, dispatch, ])
+        getDetails()
+      }, [user, navigate, dispatch, getDetails])
     
-      const formSubmit = async () => {
-        const api = await fetch(`https://api.spoonacular.com/recipes/recipes/${id}/information?apiKey=${import.meta.env.VITE_API_KEY}`)
-          const data = await api.json()
-          console.log('data: ', data.results)
-        //   setSRecipes(data.results)
-      }
+
 
   return (
-    <div>Recipe</div>
+    <div className="z-50 w-screen h-screen m-5 bg-slate-800 text-white">Recipe</div>
   )
 }
 

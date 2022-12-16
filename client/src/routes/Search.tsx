@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Recipe from './Recipe'
 interface DataFace {
     id: string,
     title: string,
@@ -21,6 +22,7 @@ function Search() {
     const dispatch = useDispatch()
     const { user } = useSelector((state: any) => state.auth)
     const navigate = useNavigate()
+    const [detailClicked, setDetailClicked] = useState<string>('')
 
     useEffect(() => {
         console.log(user)
@@ -32,9 +34,9 @@ function Search() {
       const formSubmit = async (e:React.SyntheticEvent) => {
         e.preventDefault()
         const api = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${import.meta.env.VITE_API_KEY}&query=${search}&number=9`)
-          const data = await api.json()
-          console.log('data: ', data.results)
-          setSRecipes(data.results)
+        const data = await api.json()
+        console.log('data: ', data.results)
+        setSRecipes(data.results)
       }
     
       const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,8 +68,13 @@ function Search() {
         }
       }
 
+      const loadDetail = (id: string) => {
+        setDetailClicked(() => id)
+      }
+
     return (
         <>
+            {detailClicked !== '' && <Recipe id={detailClicked}/>}
             <div className="mt-20 mx-10">
                 <form className="form-control flex flex-row flex-nowrap sm:flex-wrap w-full" onSubmit={formSubmit}>
                     <input className="input input-bordered min-w-[80%]" value={search} onChange={handleSearchChange} type="text" placeholder="Search" />
@@ -82,7 +89,10 @@ function Search() {
                                     <h2 className="card-title">{x.title}</h2>
                                     <p>{x.summary}</p>
                                     <div className="card-actions justify-end">
-                                        <button className="w-full btn btn-primary border-none bg-red-800" onClick={() => addToMenu(x)}>Add to Menu</button>
+                                        <button className="w-full btn btn-primary border-none bg-cyan-800" onClick={() => loadDetail(x.id)}>More Info</button>
+                                    </div>
+                                    <div className="card-actions justify-end">
+                                        <button className="w-full btn btn-primary border-none bg-lime-800" onClick={() => addToMenu(x)}>Add to Menu</button>
                                     </div>
                                 </div>
                             </div>
