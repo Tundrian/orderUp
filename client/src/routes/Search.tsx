@@ -25,7 +25,7 @@ function Search() {
     const [detailClicked, setDetailClicked] = useState<string>('')
 
     useEffect(() => {
-        console.log(user)
+        // console.log(user)
         if(!user){
           navigate('/home')
         }

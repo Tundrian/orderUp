@@ -34,9 +34,7 @@ function Recipe({id}: Id) {
     const getDetails = async () => {
       const api = await fetch(`https://api.spoonacular.com/recipes/${id.toString()}/information?apiKey=${import.meta.env.VITE_API_KEY}`)
         const data = await api.json()
-        // console.log('id: ', id)
-        // console.log('data: ', data)
-      //   setSRecipes(data.results)
+
       setRecipe(() => {
         return {
           id: data.id,
@@ -52,7 +50,6 @@ function Recipe({id}: Id) {
           dishTypes: data.dishTypes,
           extendedIngredients: data.extendedIngredients
         }
-
       })
     }
     
@@ -63,11 +60,51 @@ function Recipe({id}: Id) {
         }
         getDetails()
       }, [user, navigate, dispatch, getDetails])
-    
-
-
+    /*
+        full-screen layout
+        close button at top right
+        Show image in top left
+        title in top right next to image
+        section for details
+          servings
+          ready in minutes
+          health score
+          dairy free
+          vegan
+          dishTypes
+        Secction for Ingredients
+        Section for instructions, full width, under other sections 
+    */
   return (
-    <div className="z-50 w-screen h-screen m-5 bg-slate-800 text-white">Recipe</div>
+    <>
+
+      {recipe && 
+        <div className="z-50 w-screen h-screen m-5 bg-slate-800">
+          <img src={recipe.image} alt="" />
+          <h2>{recipe.title}</h2>
+          <section>
+            <p><span>Servings: </span>{recipe.servings}</p>
+            <p><span>Ready in </span>{recipe.readyInMinutes}<span> minutes</span></p>
+            <p><span>Health Score: </span>{recipe.healthScore}</p>
+            <p><span>Dairy Freen: </span>{recipe.dairyFree}</p>
+            <p><span>Vegan: </span>{recipe.vegan}</p>
+          </section>
+              <section>
+                
+                  <h3>Dish Types</h3>
+                  {recipe.dishTypes.map(dishType => (
+                    <div>
+                      {dishType}
+                    </div>
+                  ))}
+
+              </section>
+            
+          
+        </div>
+      }
+    
+    </>
   )
 }
 
