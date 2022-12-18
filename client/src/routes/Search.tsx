@@ -74,14 +74,14 @@ function Search() {
 
     return (
         <>
-            {detailClicked !== '' && <Recipe id={detailClicked}/>}
+            {sRecipes.length !== 0 && detailClicked !== '' && <Recipe id={detailClicked}/>}
             <div className="mt-20 mx-10">
                 <form className="form-control flex flex-row flex-nowrap sm:flex-wrap w-full" onSubmit={formSubmit}>
                     <input className="input input-bordered min-w-[80%]" value={search} onChange={handleSearchChange} type="text" placeholder="Search" />
                     <button className="rounded-md py-2 px-4 bg-red-800 mx-2" type="submit">Search</button>
                 </form>
                 <div className="my-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
-                    {sRecipes.length && sRecipes.map(x => 
+                    {sRecipes.length !== 0 && sRecipes.map(x => 
                         (
                             <div key={x.id} className="card card-compact bg-base-100 shadow-xl flex flex-row p-5">
                                 <figure><img className="" src={x.image} alt="recipe image"/></figure>

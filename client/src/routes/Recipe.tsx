@@ -26,6 +26,7 @@ interface Id {
   id: string
 }
 function Recipe({id}: Id) {
+  console.log('id: ', id)
     const dispatch = useDispatch()
     const { user } = useSelector((state: any) => state.auth)
     const navigate = useNavigate()
@@ -60,27 +61,12 @@ function Recipe({id}: Id) {
         }
         getDetails()
       }, [user, navigate, dispatch, getDetails])
-    /*
-        full-screen layout
-        close button at top right
-        Show image in top left
-        title in top right next to image
-        section for details
-          servings
-          ready in minutes
-          health score
-          dairy free
-          vegan
-          dishTypes
-        Secction for Ingredients
-        Section for instructions, full width, under other sections 
-    */
+
   return (
     <>
-
       {recipe && 
-        <div className="z-50 w-screen h-screen m-5 bg-slate-800">
-          <img src={recipe.image} alt="" />
+        <div className="z-50 w-screen h-auto m-5 bg-slate-800">
+          <img className="w-1/2" src={recipe.image} alt="" />
           <h2>{recipe.title}</h2>
           <section>
             <p><span>Servings: </span>{recipe.servings}</p>
@@ -89,21 +75,24 @@ function Recipe({id}: Id) {
             <p><span>Dairy Freen: </span>{recipe.dairyFree}</p>
             <p><span>Vegan: </span>{recipe.vegan}</p>
           </section>
-              <section>
-                
-                  <h3>Dish Types</h3>
-                  {recipe.dishTypes.map(dishType => (
-                    <div>
-                      {dishType}
-                    </div>
-                  ))}
-
-              </section>
-            
-          
+          <section>
+            <ul>Dish Types</ul>
+            {recipe.dishTypes.map((dishType,i) => (
+              <li key={i}>{dishType}</li>
+            ))}
+          </section>  
+          <section>
+            <ul>Ingredients</ul>
+            {recipe.extendedIngredients && recipe.extendedIngredients.map((ingredient, i) => (
+              <li key={i}>
+                  <h3>{ingredient.name}</h3>
+                  <p>{ingredient.original}<span> {ingredient.unit}</span></p>
+                  <img src={ingredient.image} alt="" />
+              </li>
+            ))}
+          </section>
         </div>
-      }
-    
+      }    
     </>
   )
 }
