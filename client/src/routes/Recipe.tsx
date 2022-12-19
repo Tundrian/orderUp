@@ -27,7 +27,7 @@ interface Id {
 }
 
 function Recipe({id}: Id) {
-  console.log('id: ', id)
+  // console.log('id: ', id)
     const dispatch = useDispatch()
     const { user } = useSelector((state: any) => state.auth)
     const navigate = useNavigate()

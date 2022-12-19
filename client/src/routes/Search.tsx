@@ -40,7 +40,8 @@ function Search() {
         }else{
             const api = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${import.meta.env.VITE_API_KEY}&query=${search}&number=9`)
             const data = await api.json()
-            console.log('data: ', data.results)
+            // console.log('data: ', data.results)
+            localStorage.setItem('testSearch', JSON.stringify(data))
             setSRecipes(data.results)
         }
     }
