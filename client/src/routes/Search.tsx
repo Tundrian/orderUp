@@ -24,27 +24,32 @@ function Search() {
     const navigate = useNavigate()
     const [detailClicked, setDetailClicked] = useState<string>('')
 
+    let cache = localStorage.getItem('testSearch') || ''
+
     useEffect(() => {
         // console.log(user)
         if(!user){
           navigate('/home')
         }
-      }, [user, navigate, dispatch, ])
+    }, [user, navigate, dispatch, ])
 
-      const formSubmit = async (e:React.SyntheticEvent) => {
+    const formSubmit = async (e:React.SyntheticEvent) => {
         e.preventDefault()
-        const api = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${import.meta.env.VITE_API_KEY}&query=${search}&number=9`)
-        const data = await api.json()
-        console.log('data: ', data.results)
-        setSRecipes(data.results)
-      }
+        if(cache !== ''){
+            setSRecipes(JSON.parse(cache))
+        }else{
+            const api = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${import.meta.env.VITE_API_KEY}&query=${search}&number=9`)
+            const data = await api.json()
+            console.log('data: ', data.results)
+            setSRecipes(data.results)
+        }
+    }
     
-      const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
-      }
+    }
 
-      const addToMenu = async (meal: Recipe) => {
+    const addToMenu = async (meal: Recipe) => {
         console.log(user._id)
         const mealFetch = {
             userID: user._id,
@@ -66,11 +71,11 @@ function Search() {
         } catch (error) {
             console.log(error)
         }
-      }
+    }
 
-      const loadDetail = (id: string) => {
+    const loadDetail = (id: string) => {
         setDetailClicked(() => id)
-      }
+    }
 
     return (
         <>

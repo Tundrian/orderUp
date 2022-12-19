@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useMemo} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 interface RecipeDetail {
@@ -25,33 +25,40 @@ interface RecipeDetail {
 interface Id {
   id: string
 }
+
 function Recipe({id}: Id) {
   console.log('id: ', id)
     const dispatch = useDispatch()
     const { user } = useSelector((state: any) => state.auth)
     const navigate = useNavigate()
     const [recipe, setRecipe] = useState<RecipeDetail>()
+    const results = useMemo(() => getDetails(id), [recipe])
+    let cache = localStorage.getItem('testRecipe') || ''
 
-    const getDetails = async () => {
-      const api = await fetch(`https://api.spoonacular.com/recipes/${id.toString()}/information?apiKey=${import.meta.env.VITE_API_KEY}`)
+    const getDetails = async (id: string) => {
+      if(cache !== ''){
+        setRecipe(JSON.parse(cache))
+      }else{
+        const api = await fetch(`https://api.spoonacular.com/recipes/${id.toString()}/information?apiKey=${import.meta.env.VITE_API_KEY}`)
         const data = await api.json()
-
-      setRecipe(() => {
-        return {
-          id: data.id,
-          title: data.title,
-          image: data.image,
-          imageType: data.imageType,
-          servings: data.servings,
-          readyInMinutes: data.readyInMinutes,
-          healthScore: data.healthScore,
-          dairyFree: data.dairyFree,
-          instructions: data.instructions,
-          vegan: data.vegan,
-          dishTypes: data.dishTypes,
-          extendedIngredients: data.extendedIngredients
-        }
-      })
+        localStorage.setItem('testRecipe', JSON.stringify(data))
+        setRecipe((id) => {
+          return {
+            id: data.id,
+            title: data.title,
+            image: data.image,
+            imageType: data.imageType,
+            servings: data.servings,
+            readyInMinutes: data.readyInMinutes,
+            healthScore: data.healthScore,
+            dairyFree: data.dairyFree,
+            instructions: data.instructions,
+            vegan: data.vegan,
+            dishTypes: data.dishTypes,
+            extendedIngredients: data.extendedIngredients
+          }
+        })
+      }
     }
     
     useEffect(() => {
@@ -59,7 +66,7 @@ function Recipe({id}: Id) {
         if(!user){
           navigate('/home')
         }
-        getDetails()
+        getDetails(id)
       }, [user, navigate, dispatch, getDetails])
 
   return (
