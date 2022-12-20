@@ -28,12 +28,12 @@ function Navbar() {
               Auth
               <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
             </a>
-            <ul className="p-2 bg-base-100">
+            <ul className="p-2 bg-base-100 z-10">
               <li><Link to={`/register`}>Register</Link></li>
               <li><Link to={`/login`}>Login</Link></li>
             </ul>
           </li>
-          <li className="p-2 bg-base-100 rounded hover:bg-gray-700 hover:cursor-pointer align-middle" onClick={() => logoutCall()}>Logout</li>
+          <li className="p-3 rounded hover:bg-lime-800 hover:cursor-pointer align-middle" onClick={() => logoutCall()}>Logout</li>
         </ul>
       </div>
     </div>

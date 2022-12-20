@@ -35,7 +35,7 @@ function Recipe({id}: Id) {
     const results = useMemo(() => getDetails(id), [recipe])
     let cache = localStorage.getItem('testRecipe') || ''
 
-    const getDetails = async (id: string) => {
+    async function getDetails (id: string) {
       if(cache !== ''){
         setRecipe(JSON.parse(cache))
       }else{
@@ -72,28 +72,34 @@ function Recipe({id}: Id) {
   return (
     <>
       {recipe && 
-        <div className="z-50 w-screen h-auto m-5 bg-slate-800">
-          <img className="w-1/2" src={recipe.image} alt="" />
-          <h2>{recipe.title}</h2>
-          <section>
-            <p><span>Servings: </span>{recipe.servings}</p>
-            <p><span>Ready in </span>{recipe.readyInMinutes}<span> minutes</span></p>
-            <p><span>Health Score: </span>{recipe.healthScore}</p>
-            <p><span>Dairy Freen: </span>{recipe.dairyFree}</p>
-            <p><span>Vegan: </span>{recipe.vegan}</p>
-          </section>
-          <section>
-            <ul>Dish Types</ul>
-            {recipe.dishTypes.map((dishType,i) => (
-              <li key={i}>{dishType}</li>
-            ))}
-          </section>  
-          <section>
-            <ul>Ingredients</ul>
+        <div className="z-50 p-5 h-auto mx-10 bg-zinc-900 mt-20 rounded-md relative">
+          <button className="absolute top-0 right-0 mr-4 mt-3 text-white text-lg border py-1 px-2 rounded-sm">X</button>
+          <div className="flex">
+            <img className="w-1/2 rounded-md max-w-md" src={recipe.image} alt="" />
+            <section className="px-5 w-1/2">
+              <h2 className="text-3xl text-rose-800">{recipe.title}</h2>
+              <div className="indent-3">
+              <p><span>Servings: </span>{recipe.servings}</p>
+              <p><span>Ready in </span>{recipe.readyInMinutes}<span> minutes</span></p>
+              <p><span>Health Score: </span>{recipe.healthScore}</p>
+              <p><span>Dairy Freen: </span>{recipe.dairyFree}</p>
+              <p><span>Vegan: </span>{recipe.vegan}</p>
+              <section className="">
+                <ul className="list-none flex-row">Dish Types</ul>
+                {recipe.dishTypes.map((dishType,i) => (
+                  <li className="list-disc ml-10 text-slate-400" key={i}>{dishType}</li>
+                ))}
+              </section> 
+              </div>
+            </section>
+          </div>
+          
+          <section className="my-5">
+            <ul className="list-none text-3xl text-center">Ingredients</ul>
             {recipe.extendedIngredients && recipe.extendedIngredients.map((ingredient, i) => (
-              <li key={i}>
-                  <h3>{ingredient.name}</h3>
-                  <p>{ingredient.original}<span> {ingredient.unit}</span></p>
+              <li  className="list-none indent-5 border-b border-b-slate-600" key={i}>
+                  <h3 className="text-lg text-slate-200">{ingredient.name}</h3>
+                  <p className="text-slate-500">{ingredient.original}<span> {ingredient.unit}</span></p>
                   <img src={ingredient.image} alt="" />
               </li>
             ))}
