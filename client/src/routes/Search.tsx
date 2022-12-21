@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Recipe from './Recipe'
+
 interface DataFace {
     id: string,
     title: string,
@@ -78,10 +79,14 @@ function Search() {
         setDetailClicked(() => id)
     }
 
+    const closeRecipe = () => {
+        setDetailClicked((prevVal) => prevVal = '')
+    }
+
     return (
         <>
-            {/* {sRecipes.length !== 0 && detailClicked !== '' && <Recipe id={detailClicked}/>} */}
-            <Recipe id={detailClicked}/>
+            {sRecipes.length !== 0 && detailClicked !== '' && <Recipe id={detailClicked} closeRecipe={closeRecipe} />}
+            {/* <Recipe id={detailClicked} closeRecipe={closeRecipe}/> */}
             <div className="mt-20 mx-10">
                 <form className="form-control flex flex-row flex-nowrap sm:flex-wrap w-full" onSubmit={formSubmit}>
                     <input className="input input-bordered min-w-[80%]" value={search} onChange={handleSearchChange} type="text" placeholder="Search" />

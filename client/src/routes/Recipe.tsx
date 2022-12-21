@@ -22,20 +22,23 @@ interface RecipeDetail {
   }[],
 }
 
-interface Id {
-  id: string
+interface Props {
+  id: string,
+  closeRecipe: Function
 }
 
-function Recipe({id}: Id) {
+function Recipe({id, closeRecipe}: Props) {
   // console.log('id: ', id)
+    let cache = localStorage.getItem('testRecipe') || ''
     const dispatch = useDispatch()
     const { user } = useSelector((state: any) => state.auth)
     const navigate = useNavigate()
     const [recipe, setRecipe] = useState<RecipeDetail>()
-    const results = useMemo(() => getDetails(id), [recipe])
-    let cache = localStorage.getItem('testRecipe') || ''
+    // const results = useMemo(() => getDetails(id), [recipe])
+    
 
-    async function getDetails (id: string) {
+    async function getDetails(id: string) {
+      console.log(id)
       if(cache !== ''){
         setRecipe(JSON.parse(cache))
       }else{
@@ -67,13 +70,13 @@ function Recipe({id}: Id) {
           navigate('/home')
         }
         getDetails(id)
-      }, [user, navigate, dispatch, getDetails])
+      }, [getDetails])
 
   return (
     <>
       {recipe && 
         <div className="z-50 p-5 h-auto mx-10 bg-zinc-900 mt-20 rounded-md relative">
-          <button className="absolute top-0 right-0 mr-4 mt-3 text-white text-lg border py-1 px-2 rounded-sm">X</button>
+          <button onClick={() => closeRecipe()} className="absolute top-0 right-0 mr-4 mt-3 text-white text-lg border py-1 px-2 rounded-sm">X</button>
           <div className="flex">
             <img className="w-1/2 rounded-md max-w-md" src={recipe.image} alt="" />
             <section className="px-5 w-1/2">
