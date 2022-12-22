@@ -28,14 +28,11 @@ interface Props {
 }
 
 function Recipe({id, closeRecipe}: Props) {
-  // console.log('id: ', id)
     let cache = localStorage.getItem('testRecipe') || ''
     const dispatch = useDispatch()
     const { user } = useSelector((state: any) => state.auth)
     const navigate = useNavigate()
     const [recipe, setRecipe] = useState<RecipeDetail>()
-    // const results = useMemo(() => getDetails(id), [recipe])
-    
 
     async function getDetails(id: string) {
       console.log(id)
@@ -65,7 +62,6 @@ function Recipe({id, closeRecipe}: Props) {
     }
     
     useEffect(() => {
-      //  console.log(user)
         if(!user){
           navigate('/home')
         }
@@ -96,7 +92,6 @@ function Recipe({id, closeRecipe}: Props) {
               </div>
             </section>
           </div>
-          
           <section className="my-5">
             <ul className="list-none text-3xl text-center">Ingredients</ul>
             {recipe.extendedIngredients && recipe.extendedIngredients.map((ingredient, i) => (

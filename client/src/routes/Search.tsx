@@ -28,7 +28,6 @@ function Search() {
     let cache = localStorage.getItem('testSearch') || ''
 
     useEffect(() => {
-        // console.log(user)
         if(!user){
           navigate('/home')
         }
@@ -52,7 +51,6 @@ function Search() {
     }
 
     const addToMenu = async (meal: Recipe) => {
-        console.log(user._id)
         const mealFetch = {
             userID: user._id,
             recipeID: meal.id,
@@ -69,7 +67,6 @@ function Search() {
                 },
                 body: JSON.stringify(mealFetch)
             })
-            await console.log(response.json())
         } catch (error) {
             console.log(error)
         }
