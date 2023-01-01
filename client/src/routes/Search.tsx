@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Recipe from './Recipe'
+import Reciperesult from '../components/reciperesult'
 
 interface DataFace {
     id: string,
@@ -50,31 +51,31 @@ function Search() {
         setSearch(e.target.value)
     }
 
-    const addToMenu = async (meal: Recipe) => {
-        const mealFetch = {
-            userID: user._id,
-            recipeID: meal.id,
-            recipeName: meal.title,
-            imageURL: meal.image,
-            mealtime: meal.summary
-        }
-        try {
-            const response = await fetch("http://localhost:5000/api/recipe", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user.token}`
-                },
-                body: JSON.stringify(mealFetch)
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const addToMenu = async (meal: Recipe) => {
+    //     const mealFetch = {
+    //         userID: user._id,
+    //         recipeID: meal.id,
+    //         recipeName: meal.title,
+    //         imageURL: meal.image,
+    //         mealtime: meal.summary
+    //     }
+    //     try {
+    //         const response = await fetch("http://localhost:5000/api/recipe", {
+    //             method: "POST",
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${user.token}`
+    //             },
+    //             body: JSON.stringify(mealFetch)
+    //         })
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
-    const loadDetail = (id: string) => {
-        setDetailClicked(() => id)
-    }
+    // const loadDetail = (id: string) => {
+    //     setDetailClicked(() => id)
+    // }
 
     const closeRecipe = () => {
         setDetailClicked((prevVal) => prevVal = '')
@@ -90,7 +91,12 @@ function Search() {
                     <button className="rounded-md py-2 px-4 bg-red-800 mx-2" type="submit">Search</button>
                 </form>
                 <div className="my-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
-                    {sRecipes.length !== 0 && sRecipes.map(x => 
+                    {sRecipes.length !== 0 && sRecipes.map( x => 
+                        (
+                            <Reciperesult recipe={x} user={user} setDetailClicked={setDetailClicked} />
+                        ))
+                    }
+                    {/* {sRecipes.length !== 0 && sRecipes.map(x => 
                         (
                             <div key={x.id} className="card card-compact bg-base-100 shadow-xl flex flex-row p-5">
                                 <figure><img className="" src={x.image} alt="recipe image"/></figure>
@@ -106,7 +112,7 @@ function Search() {
                                 </div>
                             </div>
                         )
-                    )}
+                    )} */}
                 </div>
             </div>
         </>
