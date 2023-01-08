@@ -10,7 +10,7 @@ interface DataFace {
     image: string,
 }
 
-interface Recipe {
+interface Recipes {
     id: string,     //recipeID
     title: string,  //recipeName
     image: string,  //imageURL
@@ -20,7 +20,7 @@ interface Recipe {
 function Search() {
 
     const [search, setSearch] = useState<string>('')
-    const [sRecipes, setSRecipes] = useState<[Recipe] | []>([])
+    const [sRecipes, setSRecipes] = useState<[Recipes] | []>([])
     const dispatch = useDispatch()
     const { user } = useSelector((state: any) => state.auth)
     const navigate = useNavigate()
@@ -91,12 +91,12 @@ function Search() {
                     <button className="rounded-md py-2 px-4 bg-red-800 mx-2" type="submit">Search</button>
                 </form>
                 <div className="my-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
-                    {sRecipes.length !== 0 && sRecipes.map( x => 
+                    {sRecipes.length !== 0 && sRecipes.map( (x: Recipes) => 
                         (
                             <Reciperesult recipe={x} user={user} setDetailClicked={setDetailClicked} />
                         ))
                     }
-                    {/* {sRecipes.length !== 0 && sRecipes.map(x => 
+                    {/* {sRecipes.length !== 0 && swRecipes.map(x => 
                         (
                             <div key={x.id} className="card card-compact bg-base-100 shadow-xl flex flex-row p-5">
                                 <figure><img className="" src={x.image} alt="recipe image"/></figure>
