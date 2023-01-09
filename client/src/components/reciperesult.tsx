@@ -7,7 +7,7 @@ interface Recipes {
 
 function reciperesult(props: {recipe: Recipes, user: any, setDetailClicked: Function}) {
         
-        const addToMenu = async (meal: Recipes) => {
+    const addToMenu = async (meal: Recipes) => {
         const mealFetch = {
             userID: props.user._id,
             recipeID: meal.id,
@@ -28,9 +28,11 @@ function reciperesult(props: {recipe: Recipes, user: any, setDetailClicked: Func
             console.log(error)
         }
     }
+    
     const loadDetail = (id: string) => {
         props.setDetailClicked(() => id)
     }
+
   return (
     <div key={props.recipe.id} className="card card-compact bg-base-100 shadow-xl flex flex-row p-5">
                                 <figure><img className="" src={props.recipe.image} alt="recipe image"/></figure>
@@ -41,7 +43,7 @@ function reciperesult(props: {recipe: Recipes, user: any, setDetailClicked: Func
                                         <button className="w-full btn btn-primary border-none bg-cyan-800" onClick={() => loadDetail(props.recipe.id)}>More Info</button>
                                     </div>
                                     <div className="card-actions justify-end">
-                                        <button className="w-full btn btn-primary border-none bg-lime-800" onClick={() => addToMenu(props.recipe)}>Add to Menu</button>
+                                        <button className="w-full btn btn-primary border-none bg-lime-800">Add to Menu</button>
                                     </div>
                                 </div>
                             </div>

@@ -27,6 +27,13 @@ interface Props {
   closeRecipe: Function
 }
 
+interface Recipes {
+  id: string,     //recipeID
+  title: string,  //recipeName
+  image: string,  //imageURL
+  summary: string //mealtime
+}
+
 function Recipe({id, closeRecipe}: Props) {
     let cache = localStorage.getItem('testRecipe') || ''
     const dispatch = useDispatch()
@@ -65,8 +72,34 @@ function Recipe({id, closeRecipe}: Props) {
         if(!user){
           navigate('/home')
         }
-        getDetails(id)
-      }, [getDetails])
+        const fetchData = async() => {
+          await getDetails(id)
+        }
+        
+        fetchData()
+      }, [id])
+
+      const addToMenu = async (meal: RecipeDetail) => {
+        const mealFetch = {
+            userID: user._id,
+            recipeID: meal.id,
+            recipeName: meal.title,
+            imageURL: meal.image,
+            mealtime: meal.dishTypes[0]
+        }
+        try {
+            const response = await fetch("http://localhost:5000/api/recipe", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                }, 
+                body: JSON.stringify(mealFetch)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
   return (
     <>
@@ -98,10 +131,13 @@ function Recipe({id, closeRecipe}: Props) {
               <li  className="list-none indent-5 border-b border-b-slate-600" key={i}>
                   <h3 className="text-lg text-slate-200">{ingredient.name}</h3>
                   <p className="text-slate-500">{ingredient.original}<span> {ingredient.unit}</span></p>
-                  <img src={ingredient.image} alt="" />
+                  {/* <img src={ingredient.image} alt="" /> */}
               </li>
             ))}
           </section>
+          <div className="card-actions justify-end">
+              <button className="w-full btn btn-primary border-none bg-lime-800" onClick={() => addToMenu(recipe)} >Add to Menu</button>
+          </div>
         </div>
       }    
     </>

@@ -32,7 +32,7 @@ function Search() {
         if(!user){
           navigate('/home')
         }
-    }, [user, navigate, dispatch, ])
+    }, [user])
 
     const formSubmit = async (e:React.SyntheticEvent) => {
         e.preventDefault()
